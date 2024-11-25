@@ -1,13 +1,14 @@
 #include<iostream>
 #include<Windows.h>
-#include<cstdlib>
+#include<ctime>
 
 int main() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 	srand(time(NULL));
-	
-	std::cout << "test";
+
+	// TASK 1
+	int 
 
 	return 0;
 }
