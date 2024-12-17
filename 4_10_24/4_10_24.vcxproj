@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{e41d86b7-0104-43c8-b325-d4c53205b6f1}</ProjectGuid>
-    <RootNamespace>KawaiDa</RootNamespace>
+    <ProjectGuid>{30a28a07-d04a-45bc-876a-5aa25a851390}</ProjectGuid>
+    <RootNamespace>My41024</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -128,12 +128,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="storage.cpp" />
-    <ClCompile Include="user.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="storage.h" />
-    <ClInclude Include="user.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
