@@ -6,14 +6,13 @@ int main() {
 	SetConsoleOutputCP(1251);
 	SetConsoleCP(1251);
 
-	Evstring a();
-	Evstring b(31);
-	Evstring c("Hello World!");
+	Evstring a;
+	/*a.getLine();
 
-	unsigned int size = c.getSize();
+	unsigned int size = a.getSize();
 	for (unsigned short i = 0; i < size; i++) {
-		std::cout << *(c.getWord() + i);
-	}
+		std::cout << *(a.getWord() + i);
+	}*/
 
 	return 0;
 }

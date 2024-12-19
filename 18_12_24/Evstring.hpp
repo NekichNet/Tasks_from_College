@@ -10,15 +10,19 @@ class Evstring
 public:
 	static const unsigned short DEFAULT_SIZE = 52;
 
-	Evstring(unsigned short size);
+	Evstring(unsigned short size = DEFAULT_SIZE) { this->size = size; };
 	Evstring(const char* word);
 	~Evstring();
 
 	unsigned int getSize();
 	char* getWord();
 
-	char* operator+(const Evstring& other);
-	void operator=(const Evstring& other);
+	void print();
+
+	void getLine(char char_to_stop) { char_to_stop = '\n'; };
+
+	Evstring operator+(const Evstring& other);
+	Evstring& operator=(const Evstring& other);
 private:
 	char* word;
 	unsigned int size;
