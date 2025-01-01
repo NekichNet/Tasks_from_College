@@ -28,8 +28,37 @@ unsigned long days_delta(unsigned short start_day, unsigned short start_month, u
 	return days_gone(end_day, end_month, end_year) - days_gone(start_day, start_month, start_year);
 }
 
-int main() {
+// Task 2
+template <typename ListType>
+double mean(ListType list, unsigned int size) {
+	double sum = 0;
+	for (unsigned int i = 0; i < size; i++) {
+		sum += list[i];
+	}
+	return sum / size;
+}
 
+// Task 3
+
+template <typename ListType>
+unsigned int* sign_counter(ListType list, unsigned int size) {
+	unsigned int counter[3] = { 0, 0, 0 };
+	for (unsigned int i = 0; i < size; i++) {
+		if (list[i] == 0) { counter[1]++; }
+		else { counter[(list[i] + abs(list[i])) / list[i]]++; }
+	}
+	std::cout << "Negative: " << counter[0] << "\nZero: " << counter[1] << "\nPositive: " << counter[2];
+	return counter;
+}
+
+int main() {
+	// Task 1
+	std::cout << "Dates' delta: " << days_delta(1, 1, 2000, 1, 1, 2025) << std::endl;
+	// Task 2
+	int mylist[10] = { -4, 0, -8, 4, -3, 10, 0, 4, -5, 2 };
+	std::cout << "Mean: " << mean(mylist, 10) << std::endl;
+	// Task 3
+	sign_counter(mylist, 10);
 
 	return 0;
 }
