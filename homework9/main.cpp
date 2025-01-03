@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cstdlib>
-#include "task2.hpp"
 
 template <typename ListType>
 ListType sum_list(ListType* start_pointer, unsigned short size) {
@@ -20,6 +19,48 @@ unsigned short find_min_sum(ListType* list, unsigned short list_size,
 		offset=offset + 1, min_pos=min_pos);
 }
 
+// Task 2
+template <typename ListType>
+ListType maxValue(ListType list[], unsigned int size) {
+	ListType value = list[0];
+	for (unsigned int i = 1; i < size; i++) { if (list[i] > value) value = list[i]; }
+	return value;
+}
+
+template <typename ListType>
+ListType maxValue(ListType list[][3], unsigned int size) {
+	ListType value = list[0][0];
+	for (unsigned int i = 0; i < size; i++) {
+		for (unsigned int j = 0; j < 3; j++) {
+			if (list[i][j] > value) value = list[i][j];
+		}
+	}
+	return value;
+}
+
+template <typename ListType>
+ListType maxValue(ListType list[][2][2], unsigned int size) {
+	ListType value = list[0][0][0];
+	for (unsigned int i = 0; i < size; i++) {
+		for (unsigned int j = 0; j < 2; j++) {
+			for (unsigned int l = 0; l < 2; l++) {
+				if (list[i][j][l] > value) value = list[i][j][l];
+			}
+		}
+	}
+	return value;
+}
+
+int maxValue(int a, int b) { if (a > b) { return a; } return b; }
+
+int maxValue(int a, int b, int c) {
+	int value;
+	if (a > b) { value = a; }
+	else { value = b; }
+	if (value > c) { return value; }
+	return c;
+}
+
 int main() {
 	srand(time(NULL));
 
@@ -35,7 +76,7 @@ int main() {
 	unsigned short pos = find_min_sum(m, m_size, min_sum_range);
 	std::cout << "Position: " << pos << "\nValues: [ ";
 	for (unsigned short i = pos; i < pos + min_sum_range; i++) { std::cout << m[i] << ' '; }
-	std::cout << ']' << std::endl;
+	std::cout << "]\n" << std::endl;
 
 	// Task 2
 	short m1[10] = { 1, 534, 78, 2, 44, 675, 5, 8, 3, 5 },
