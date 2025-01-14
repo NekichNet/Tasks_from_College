@@ -129,14 +129,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="checklist.cpp" />
+    <ClCompile Include="item.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="storage.cpp" />
     <ClCompile Include="users.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="checklist.h" />
+    <ClInclude Include="item.h" />
+    <ClInclude Include="storage.h" />
     <ClInclude Include="users.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="users.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
