@@ -4,9 +4,8 @@ class Session {
 private:
 	std::string user_login = "";
 	std::string user_password = "";
-	std::string data;
+	unsigned short permission = 0;
 public:
-	Session();
-	bool login();
-	bool is_admin();
+	bool login(std::string temp_login, std::string temp_password);
+	void show_commands();
 };
