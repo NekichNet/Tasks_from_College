@@ -1,38 +1,30 @@
 #pragma once
 
 #include <cmath>
+#include <iostream>
 
 class MathInt {
 public:
 	MathInt() :MathInt(0u) {}
 	MathInt(unsigned units, bool positive = true) :_units(units), _positive(positive) {}
-	MathInt(int num) { _positive = num > -1;
-	_units = _positive ? static_cast<unsigned>(num) : ::abs(num); }
+	MathInt(int num);
 
-	void setSign(bool positive) { _positive = positive; }
-	void setUnits(unsigned units) { _units = units; }
+	MathInt setSign(bool positive);
+	MathInt setUnits(unsigned units);
 
-	bool isPositive() const { return _positive; }
-	unsigned getUnsigned() const { return _units; }
-	bool isOdd() const { return bool(_units % 2); }
-	bool isPrime() const { 
-		if (!_positive || _units < 2) return false;
-		for (unsigned i = 2; i < _units - 1; i++) if (!bool(_units % i)) return false;
-		return true;
-	}
+	bool isPositive() const;
+	unsigned getUnsigned() const;
+	bool isOdd() const;
+	bool isPrime() const;
 	
 	// Calculates only in abs()'ed values!
-	bool isCoprime(MathInt other) const {
-		unsigned max_num = _units >= other._units ? _units : other._units;
-		unsigned min_num = _units + other._units - max_num;
-		if (_units < 2 || other._units < 2 || !_positive || !other._positive)
-			return false;
-		for (unsigned i = 2; i < min_num; i++)
-			if (bool(min_num % i) && bool(max_num & i)) return false;
-		return true;
-	}
+	bool isCoprime(MathInt other) const;
 
-	// TODO: Add NOK and NOD
+	MathInt GCD(MathInt other) const;
+	MathInt LCM(MathInt other) const;
+
+	MathInt operator=(int num) { return MathInt(num); }
+	MathInt operator=(unsigned num) { return MathInt(num, true); }
 
 	friend MathInt operator+(MathInt a, MathInt b);
 	friend MathInt operator-(MathInt a, MathInt b);
@@ -50,6 +42,14 @@ public:
 	MathInt operator-=(MathInt other);
 	MathInt operator*=(MathInt other);
 	MathInt operator/=(MathInt other);
+	MathInt operator%=(MathInt other);
+
+	MathInt operator++();
+	MathInt operator++(int);
+	MathInt operator--();
+	MathInt operator--(int);
+	
+	friend std::ostream& operator<<(std::ostream& out, const MathInt& num);
 private:
 	bool _positive;
 	unsigned _units;
