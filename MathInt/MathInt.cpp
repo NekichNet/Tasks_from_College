@@ -9,6 +9,7 @@ MathInt MathInt::setSign(bool positive) { _positive = positive; return *this; }
 MathInt MathInt::setUnits(unsigned units) { _units = units; return *this; }
 
 bool MathInt::isPositive() const { return _positive; }
+bool MathInt::isNegative() const { return !_positive; }
 unsigned MathInt::getUnsigned() const { return _units; }
 bool MathInt::isOdd() const { return bool(_units % 2); }
 
@@ -17,6 +18,8 @@ bool MathInt::isPrime() const {
 	for (unsigned i = 2; i < _units - 1; i++) if (!bool(_units % i)) return false;
 	return true;
 }
+
+bool MathInt::isSame(MathInt* other) const { return other == this; }
 
 bool MathInt::isCoprime(MathInt other) const {
 	if (_units < 2 || other._units < 2 || !_positive || !other._positive)
@@ -97,6 +100,34 @@ MathInt MathInt::operator--(int)
 	MathInt num = MathInt(_units, _positive);
 	--*this;
 	return num;
+}
+
+int MathInt::to_int() const
+{
+	return int((_positive ? 1 : -1) * INT_MAX < _units ? INT_MAX : _units);
+}
+
+double MathInt::to_double() const
+{
+	return double((_positive ? 1 : -1) * INT_MAX < _units ? INT_MAX : _units);
+}
+
+bool MathInt::to_bool() const
+{
+	return _units != 0;
+}
+
+unsigned* MathInt::getPrimeDividers() const
+{
+	std::vector<unsigned> m;
+	/*
+	unsigned counter = 0;
+	for (unsigned i = 0; i < _units; i++) {
+		bool iPrime = true;
+		for (unsigned j = 2; j < i; j++) if (!bool(_units % i)) { iPrime = false; break; }
+		if (iPrime && _units % i == 0) counter++;
+	}
+	*/
 }
 
 MathInt operator+(MathInt a, MathInt b)

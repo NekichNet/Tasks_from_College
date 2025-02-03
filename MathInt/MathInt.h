@@ -2,20 +2,26 @@
 
 #include <cmath>
 #include <iostream>
+#include <string>
+#include <vector>
 
 class MathInt {
 public:
 	MathInt() :MathInt(0u) {}
 	MathInt(unsigned units, bool positive = true) :_units(units), _positive(positive) {}
 	MathInt(int num);
+	MathInt(std::string num) :MathInt(std::stoi(num)) {};
 
 	MathInt setSign(bool positive);
 	MathInt setUnits(unsigned units);
 
 	bool isPositive() const;
+	bool isNegative() const;
 	unsigned getUnsigned() const;
 	bool isOdd() const;
 	bool isPrime() const;
+
+	bool isSame(MathInt* other) const;
 	
 	// Calculates only in abs()'ed values!
 	bool isCoprime(MathInt other) const;
@@ -50,6 +56,12 @@ public:
 	MathInt operator--(int);
 	
 	friend std::ostream& operator<<(std::ostream& out, const MathInt& num);
+
+	int to_int() const;
+	double to_double() const;
+	bool to_bool() const;
+
+	unsigned* getPrimeDividers() const;
 private:
 	bool _positive;
 	unsigned _units;
