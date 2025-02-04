@@ -117,17 +117,16 @@ bool MathInt::to_bool() const
 	return _units != 0;
 }
 
-unsigned* MathInt::getPrimeDividers() const
+std::vector<unsigned> MathInt::getPrimeDividers() const
 {
 	std::vector<unsigned> m;
-	/*
-	unsigned counter = 0;
 	for (unsigned i = 0; i < _units; i++) {
+		if (bool(_units % i)) continue;
 		bool iPrime = true;
-		for (unsigned j = 2; j < i; j++) if (!bool(_units % i)) { iPrime = false; break; }
-		if (iPrime && _units % i == 0) counter++;
+		for (unsigned j = 2; j < i; j++) if (!bool(i % j)) { iPrime = false; break; }
+		if (iPrime) m.push_back(i);
 	}
-	*/
+	return m;
 }
 
 MathInt operator+(MathInt a, MathInt b)

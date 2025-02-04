@@ -18,9 +18,15 @@
     <ClInclude Include="MathInt.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="MathRational.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MathInt.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="MathRational.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>

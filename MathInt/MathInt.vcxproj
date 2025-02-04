@@ -128,9 +128,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="MathInt.h" />
+    <ClInclude Include="MathRational.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MathInt.cpp" />
+    <ClCompile Include="MathRational.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

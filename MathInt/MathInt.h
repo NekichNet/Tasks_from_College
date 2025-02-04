@@ -10,6 +10,7 @@ public:
 	MathInt() :MathInt(0u) {}
 	MathInt(unsigned units, bool positive = true) :_units(units), _positive(positive) {}
 	MathInt(int num);
+	MathInt(double num) :MathInt(static_cast<int>(num)) {};
 	MathInt(std::string num) :MathInt(std::stoi(num)) {};
 
 	MathInt setSign(bool positive);
@@ -61,7 +62,7 @@ public:
 	double to_double() const;
 	bool to_bool() const;
 
-	unsigned* getPrimeDividers() const;
+	std::vector<unsigned> getPrimeDividers() const;
 private:
 	bool _positive;
 	unsigned _units;
