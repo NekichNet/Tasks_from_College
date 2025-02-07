@@ -31,9 +31,6 @@ public:
 	MathInt GCD(MathInt other) const;
 	MathInt LCM(MathInt other) const;
 
-	MathInt operator=(int num) { return MathInt(num); }
-	MathInt operator=(unsigned num) { return MathInt(num, true); }
-
 	friend MathInt operator+(MathInt a, MathInt b);
 	friend MathInt operator-(MathInt a, MathInt b);
 	friend MathInt operator*(MathInt a, MathInt b);
