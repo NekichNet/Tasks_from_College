@@ -2,10 +2,6 @@
 
 #include "MathInt.h"
 
-const unsigned short MAX_DENOM_LENGHT = 9u;
-const unsigned short ZERO_DENOM_THRESHOLD = 5u;
-const unsigned short ROUNDING_THRESHOLD = 5u;
-
 class MathRational {
 public:
 	MathRational() : MathRational(MathInt(0u), MathInt(1u)) {};
@@ -56,7 +52,15 @@ public:
 	MathRational operator--(int);
 
 	friend std::ostream& operator<<(std::ostream& out, const MathRational& num);
+
+	static unsigned short MAX_DENOM_LENGHT;
+	static unsigned short ZERO_DENOM_THRESHOLD;
+	static unsigned short ROUNDING_THRESHOLD;
 private:
 	MathInt _numerator;
 	MathInt _denominator;
 };
+
+unsigned short MathRational::MAX_DENOM_LENGHT = 9u;
+unsigned short MathRational::ZERO_DENOM_THRESHOLD = 5u;
+unsigned short MathRational::ROUNDING_THRESHOLD = 5u;

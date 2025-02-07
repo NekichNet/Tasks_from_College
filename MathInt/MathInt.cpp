@@ -8,11 +8,11 @@ MathInt::MathInt(int num) {
 MathInt MathInt::setSign(bool positive) { _positive = positive; return *this; }
 MathInt MathInt::setUnits(unsigned units) { _units = units; return *this; }
 
-bool MathInt::isPositive() const { return _positive; }
-bool MathInt::isNegative() const { return !_positive; }
+bool	 MathInt::isPositive()	const { return _positive; }
+bool	 MathInt::isNegative()	const { return !_positive; }
 unsigned MathInt::getUnsigned() const { return _units; }
-bool MathInt::isOdd() const { return bool(_units % 2); }
-bool MathInt::isEven() const { return !bool(_units % 2); }
+bool	 MathInt::isOdd()		const { return bool(_units % 2); }
+bool	 MathInt::isEven()		const { return !bool(_units % 2); }
 
 bool MathInt::isPrime() const {
 	if (!_positive || _units < 2) return false;
@@ -28,7 +28,7 @@ bool MathInt::isCoprime(MathInt other) const {
 	unsigned max_num = _units >= other._units ? _units : other._units;
 	unsigned min_num = _units + other._units - max_num;
 	for (unsigned i = 2; i < min_num; i++)
-		if (bool(min_num % i) && bool(max_num & i)) return false;
+		if (bool(min_num % i) && bool(max_num % i)) return false;
 	return true;
 }
 
@@ -113,12 +113,12 @@ MathInt MathInt::operator--(int)
 
 int MathInt::to_int() const
 {
-	return int((_positive ? 1 : -1) * INT_MAX < _units ? INT_MAX : _units);
+	return int((_positive ? 1 : -1) * std::numeric_limits<int>::max() < _units ? std::numeric_limits<int>::max() : _units);
 }
 
 double MathInt::to_double() const
 {
-	return double((_positive ? 1 : -1) * INT_MAX < _units ? INT_MAX : _units);
+	return double((_positive ? 1 : -1) * std::numeric_limits<int>::max() < _units ? std::numeric_limits<int>::max() : _units);
 }
 
 bool MathInt::to_bool() const
