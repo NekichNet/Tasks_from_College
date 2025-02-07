@@ -21,7 +21,7 @@ public:
 
 	MathInt getNumerator() const;
 	MathInt getDenominator() const;
-	MathRational getInverse() const;
+	MathRational getInversed() const;
 	MathRational getSimplified() const;
 	MathInt getUnits() const;
 	bool isCorrect() const;
@@ -36,8 +36,8 @@ public:
 	friend MathRational operator+(MathRational a, MathRational b);
 	friend MathRational operator-(MathRational a, MathRational b);
 	friend MathRational operator*(MathRational a, MathRational b);
+	friend MathRational operator*(MathRational a, MathInt b);
 	friend MathRational operator/(MathRational a, MathRational b);
-	friend MathRational operator%(MathRational a, MathRational b);
 
 	friend bool operator==(MathRational a, MathRational b);
 	friend bool operator>=(MathRational a, MathRational b);
@@ -49,7 +49,6 @@ public:
 	MathRational operator-=(MathRational other);
 	MathRational operator*=(MathRational other);
 	MathRational operator/=(MathRational other);
-	MathRational operator%=(MathRational other);
 
 	MathRational operator++();
 	MathRational operator++(int);

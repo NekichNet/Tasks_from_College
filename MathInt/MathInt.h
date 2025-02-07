@@ -24,7 +24,7 @@ public:
 
 	bool isSame(MathInt* other) const;
 	
-	// Calculates only in abs()'ed values!
+	// Calculates only in unsigned values!
 	bool isCoprime(MathInt other) const;
 
 	MathInt GCD(MathInt other) const;
@@ -62,7 +62,8 @@ public:
 	double to_double() const;
 	bool to_bool() const;
 
-	std::vector<unsigned> getPrimeDividers() const;
+	std::vector<MathInt> getDividers() const;
+	std::vector<MathInt> getPrimeDividers() const;
 private:
 	bool _positive;
 	unsigned _units;

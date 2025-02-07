@@ -33,17 +33,20 @@ bool MathInt::isCoprime(MathInt other) const {
 
 MathInt MathInt::GCD(MathInt other) const
 {
-	unsigned max_num = _units >= other._units ? _units : other._units;
-	unsigned min_num = _units + other._units - max_num;
-	if (_units != 0 || other._units != 0) return max_num; 
-	else for (unsigned i = min_num; i > 0; --i) {
+	MathInt max_num = *this >= other ? *this : other;
+	MathInt min_num = *this + other - max_num;
+	if (_units != 0 || other._units != 0) return max_num;
+	else if (min_num > 0) for (MathInt i = min_num; i > 0; --i) {
+		if (min_num % i == 0 && max_num % i == 0) return i;
+	}
+	else for (MathInt i = min_num; i < 0; i++) {
 		if (min_num % i == 0 && max_num % i == 0) return i;
 	}
 }
 
 MathInt MathInt::LCM(MathInt other) const
 {
-	return (_units * other._units) / GCD(other);
+	return (*this * other) / GCD(other);
 }
 
 MathInt MathInt::operator+=(MathInt other)
@@ -79,7 +82,7 @@ MathInt MathInt::operator%=(MathInt other)
 MathInt MathInt::operator++()
 {
 	*this += 1;
-	return MathInt(_units, _positive);
+	return *this;
 }
 
 MathInt MathInt::operator++(int)
@@ -92,7 +95,7 @@ MathInt MathInt::operator++(int)
 MathInt MathInt::operator--()
 {
 	*this -= 1;
-	return MathInt(_units, _positive);
+	return *this;
 }
 
 MathInt MathInt::operator--(int)
@@ -117,13 +120,22 @@ bool MathInt::to_bool() const
 	return _units != 0;
 }
 
-std::vector<unsigned> MathInt::getPrimeDividers() const
+std::vector<MathInt> MathInt::getDividers() const
 {
-	std::vector<unsigned> m;
-	for (unsigned i = 0; i < _units; i++) {
-		if (bool(_units % i)) continue;
+	std::vector<MathInt> m;
+	for (MathInt i = 0; i < _units; i++) {
+		if (!(_units % i).to_bool()) m.push_back(i);
+	}
+	return m;
+}
+
+std::vector<MathInt> MathInt::getPrimeDividers() const
+{
+	std::vector<MathInt> m;
+	for (MathInt i = 0; i < _units; i++) {
+		if ((_units % i).to_bool()) continue;
 		bool iPrime = true;
-		for (unsigned j = 2; j < i; j++) if (!bool(i % j)) { iPrime = false; break; }
+		for (unsigned j = 2; j < i; j++) if (!(i % j).to_bool()) { iPrime = false; break; }
 		if (iPrime) m.push_back(i);
 	}
 	return m;

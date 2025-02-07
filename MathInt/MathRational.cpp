@@ -26,7 +26,7 @@ void MathRational::setNumerator(MathInt numerator) { _numerator = numerator; }
 void MathRational::setDenominator(MathInt denominator) { _denominator = denominator; }
 
 void MathRational::simplify() {
-
+	MathInt gcd = _denominator.GCD(_numerator); _denominator /= gcd; _numerator /= gcd;
 }
 
 void MathRational::inverse() { std::swap(_numerator, _denominator); }
@@ -35,7 +35,13 @@ MathInt MathRational::getNumerator() const { return _numerator; }
 
 MathInt MathRational::getDenominator() const { return _denominator; }
 
-MathRational MathRational::getInverse() const { return MathRational(_denominator, _numerator); }
+MathRational MathRational::getInversed() const { return MathRational(_denominator, _numerator); }
+
+MathRational MathRational::getSimplified() const
+{
+	MathInt gcd = _denominator.GCD(_numerator);
+	return MathRational(_denominator / gcd, _numerator / gcd);
+}
 
 MathInt MathRational::getUnits() const { return _numerator / _denominator; }
 
@@ -53,66 +59,60 @@ bool MathRational::isNegative() const {
 
 bool MathRational::isSame(MathRational* other) const { return this == other; }
 
-MathRational operator+(MathRational a, MathRational b)
-{
-	unsigned max_num = a._units >= b._units ? a._units : b._units;
-	unsigned min_num = a._units + b._units - max_num;
-	return a._positive == b._positive ?
-		MathRational(static_cast<unsigned>(a._units + b._units), a._positive) :
-		MathRational(max_num - min_num, a._positive ? a._units >= b._units : b._units >= a._units);
+MathRational operator+(MathRational a, MathRational b) {
+	MathInt lcm = a._denominator.LCM(b._denominator);
+	return MathRational((a._numerator * (lcm / a._denominator)) + (b._numerator * (lcm / b._denominator)), lcm);
 }
 
 MathRational operator-(MathRational a, MathRational b)
 {
-	return a + b.setSign(!b._positive);
+	MathInt lcm = a._denominator.LCM(b._denominator);
+	return MathRational((a._numerator * (lcm / a._denominator)) - (b._numerator * (lcm / b._denominator)), lcm);
 }
 
 MathRational operator*(MathRational a, MathRational b)
 {
-	return MathRational(a._units * b._units, a._positive == b._positive);
+	return MathRational(a._numerator * b._numerator, a._denominator * b._denominator);
+}
+
+MathRational operator*(MathRational a, MathInt b)
+{
+	return MathRational(a._numerator * b, a._denominator * b);
 }
 
 MathRational operator/(MathRational a, MathRational b)
 {
-	return MathRational(a._units / b._units, a._positive == b._positive);
-}
-
-MathRational operator%(MathRational a, MathRational b)
-{
-	return MathRational(a._units % b._units, a._positive == b._positive);
+	return a * b.getInversed();
 }
 
 bool operator==(MathRational a, MathRational b)
 {
-	return a._units == b._units && a._positive == b._positive;
+	MathRational x = a.getSimplified(), y = b.getSimplified();
+	return x._numerator == y._numerator && x._denominator == y._denominator;
 }
 
 bool operator>=(MathRational a, MathRational b)
 {
-	return a._positive && b._positive ? a._units >= b._units :
-		!(a._positive || b._positive) ? a._units < b._units :
-		a._positive && !b._positive;
+	MathInt lcm = a._denominator.LCM(b._denominator);
+	return (a * (lcm / a._denominator)) >= (b * (lcm / b._denominator));
 }
 
 bool operator<=(MathRational a, MathRational b)
 {
-	return a._positive && b._positive ? a._units <= b._units :
-		!(a._positive || b._positive) ? a._units > b._units :
-	!a._positive && b._positive;
+	MathInt lcm = a._denominator.LCM(b._denominator);
+	return (a * (lcm / a._denominator)) <= (b * (lcm / b._denominator));
 }
 
 bool operator>(MathRational a, MathRational b)
 {
-	return a._positive && b._positive ? a._units > b._units :
-	!(a._positive || b._positive) ? a._units <= b._units :
-		a._positive && !b._positive;
+	MathInt lcm = a._denominator.LCM(b._denominator);
+	return (a * (lcm / a._denominator)) > (b * (lcm / b._denominator));
 }
 
 bool operator<(MathRational a, MathRational b)
 {
-	return a._positive && b._positive ? a._units < b._units :
-		!(a._positive || b._positive) ? a._units >= b._units :
-		!a._positive && b._positive;
+	MathInt lcm = a._denominator.LCM(b._denominator);
+	return (a * (lcm / a._denominator)) < (b * (lcm / b._denominator));
 }
 
 MathRational MathRational::operator+=(MathRational other)
@@ -139,21 +139,15 @@ MathRational MathRational::operator/=(MathRational other)
 	return *this;
 }
 
-MathRational MathRational::operator%=(MathRational other)
-{
-	*this = *this % other;
-	return *this;
-}
-
 MathRational MathRational::operator++()
 {
 	*this += 1;
-	return MathRational(_units, _positive);
+	return *this;
 }
 
 MathRational MathRational::operator++(int)
 {
-	MathRational num = MathRational(_units, _positive);
+	MathRational num = MathRational(_numerator, _denominator);
 	++*this;
 	return num;
 }
@@ -161,19 +155,20 @@ MathRational MathRational::operator++(int)
 MathRational MathRational::operator--()
 {
 	*this -= 1;
-	return MathRational(_units, _positive);
+	return *this;
 }
 
 MathRational MathRational::operator--(int)
 {
-	MathRational num = MathRational(_units, _positive);
+	MathRational num = MathRational(_numerator, _denominator);
 	--*this;
 	return num;
 }
 
 std::ostream& operator<<(std::ostream& out, const MathRational& num)
 {
-	out << num._positive ? "" : "-";
-	out << num._units;
+	out << num._numerator;
+	out << '/';
+	out << num._denominator;
 	return out;
 }
