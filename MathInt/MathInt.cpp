@@ -99,6 +99,11 @@ MathInt MathInt::operator--()
 	return *this;
 }
 
+MathInt MathInt::operator-()
+{
+	return MathInt(_units, !_positive);
+}
+
 MathInt MathInt::operator--(int)
 {
 	MathInt num = MathInt(_units, _positive);
@@ -209,4 +214,12 @@ std::ostream& operator<<(std::ostream& out, const MathInt& num)
 	out << num._positive ? "" : "-";
 	out << num._units;
 	return out;
+}
+
+std::istream& operator>>(std::istream& in, MathInt& num)
+{
+	std::string input;
+	in >> input;
+	num = MathInt(input);
+	return in;
 }

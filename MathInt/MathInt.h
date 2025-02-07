@@ -55,9 +55,11 @@ public:
 	MathInt operator++();
 	MathInt operator++(int);
 	MathInt operator--();
+	MathInt operator-();
 	MathInt operator--(int);
 	
 	friend std::ostream& operator<<(std::ostream& out, const MathInt& num);
+	friend std::istream& operator>>(std::istream& in, const MathInt& num);
 
 	int to_int() const;
 	double to_double() const;
