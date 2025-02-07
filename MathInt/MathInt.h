@@ -20,6 +20,7 @@ public:
 	bool isNegative() const;
 	unsigned getUnsigned() const;
 	bool isOdd() const;
+	bool isEven() const;
 	bool isPrime() const;
 
 	bool isSame(MathInt* other) const;

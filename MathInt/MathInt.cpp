@@ -12,6 +12,7 @@ bool MathInt::isPositive() const { return _positive; }
 bool MathInt::isNegative() const { return !_positive; }
 unsigned MathInt::getUnsigned() const { return _units; }
 bool MathInt::isOdd() const { return bool(_units % 2); }
+bool MathInt::isEven() const { return !bool(_units % 2); }
 
 bool MathInt::isPrime() const {
 	if (!_positive || _units < 2) return false;
