@@ -11,8 +11,8 @@ namespace _20_02_cs
 	{
 		private static double percent = 0.05;
 
-        private string fullname;
-        private double money;
+		private string fullname;
+		private double money;
 
 		public static Deposit operator ++(Deposit deposit) {
 			deposit.money += deposit.money * percent; return deposit;
