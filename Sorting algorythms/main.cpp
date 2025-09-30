@@ -4,7 +4,7 @@
 
 void printList(int m[], unsigned m_length) {
 	for (unsigned i = 0u; i < m_length - 1; i++) std::cout << m[i] << ", ";
-	std::cout << m[m_length] << std::endl;
+	std::cout << m[m_length - 1] << std::endl;
 }
 
 int* mergeSort(int m[], unsigned m_length) {
@@ -29,7 +29,7 @@ int* mergeSort(int m[], unsigned m_length) {
 int main() {
 	srand(time(0));
 
-	const unsigned int SIZE = 10u;
+	const unsigned int SIZE = 8u;
 
 	int start_m[SIZE];
 	for (unsigned i = 0u; i < SIZE; i++) { start_m[i] = std::rand() % 101; }
