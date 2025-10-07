@@ -12,17 +12,28 @@ int* mergeSort(int m[], unsigned m_length) {
 	if (m_length > 2) {
 		int* left{ new int[m_length / 2] };
 		int* right{ new int[m_length - (m_length / 2)] };
-		std::copy_n(m, m_length / 2, left);
-		std::copy_n(m + (m_length / 2), m_length / 2, right);
-		std::copy_n(mergeSort(left, m_length / 2), m_length / 2, new_m);
-		std::copy_n(mergeSort(right, m_length - (m_length / 2)), m_length - (m_length / 2), new_m + (m_length / 2));
+		std::copy_n(mergeSort(m, m_length / 2), m_length / 2, left);
+		std::copy_n(mergeSort(m + (m_length / 2), m_length - (m_length / 2)), m_length - (m_length / 2), right);
+
+  		int i = 0, j = 0, k = 0;
+		while (i < m_length / 2 && j < m_length - (m_length / 2)) {
+			if (left[i] <= right[j]) {
+				new_m[k] = left[i];
+				i++;
+			}
+			else {
+				new_m[k] = right[j];
+				j++;
+			}
+			k++;
+		}
 	}
 	else if (m_length == 2) {
 		new_m[0] = m[0] > m[1] ? m[1] : m[0];
 		new_m[1] = m[0] > m[1] ? m[0] : m[1];
 	}
 	else if (m_length == 1) new_m[0] = m[0];
-	else throw "List length error!";
+	else throw "Array length error!";
 	return new_m;
 }
 
